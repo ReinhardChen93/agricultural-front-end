@@ -10458,182 +10458,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 40 */
-/*!*************************************************************************!*\
-  !*** D:/work/workspace/uniApp/agricultural-front-end/common/request.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _index = _interopRequireDefault(__webpack_require__(/*! ../store/index.js */ 41));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
-{
-  // 全局配置
-  /**
-   * @name 请求封装
-   * @param {baseUrl} 服务请求地址
-   */
-  common: {
-
-    baseUrl: "",
-
-
-
-
-    header: {
-      'Content-Type': 'application/json;charset=UTF-8' },
-
-    data: {},
-    method: 'GET',
-    dataType: 'json',
-    token: false },
-
-  // 请求 返回promise
-  request: function request() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    // 组织参数
-    options.url = this.common.baseUrl + options.url;
-    options.header = options.header || this.common.header;
-    options.data = options.data || this.common.data;
-    options.method = options.method || this.common.method;
-    options.dataType = options.dataType || this.common.dataType;
-    options.token = options.token === true ? true : this.common.token;
-
-    // 请求
-    return new Promise(function (res, rej) {
-      // 请求之前验证...
-      // token验证
-      if (options.token) {
-        var token = _index.default.state.token;
-        // 往header头中添加token
-        options.header.token = token;
-
-        // 二次验证
-        if (!token && options.noJump !== true) {
-          uni.showToast({ title: '请先登录', icon: 'none' });
-          // token不存在时跳转
-          uni.navigateTo({
-            url: '/pages/login/login' });
-
-          return rej("请先登录");
-        }
-      }
-
-      // if (options.token) {
-      //     let token = uni.getStorageSync('token')
-      //     // 二次验证
-      //     if (!token && options.noJump !== true) {
-      //         uni.showToast({ title: '请先登录', icon: 'none' });
-      //         // token不存在时跳转
-      // 		uni.navigateTo({
-      // 		    url: '/pages/login/login',
-      // 		});
-      // 		return rej("请先登录") 
-      //     }
-      //     // 往header头中添加token
-      //     options.header.token = token
-      // }
-
-      // 请求中...
-      uni.request(_objectSpread(_objectSpread({},
-      options), {}, {
-        success: function success(result) {
-          // 返回原始数据
-          if (options.native) {
-            return res(result);
-          }
-          // 服务端失败
-          if (result.statusCode !== 200) {
-            if (options.toast !== false) {
-              uni.showToast({
-                title: result.data.data || '服务端失败',
-                icon: 'none' });
-
-            }
-            // token不合法，直接退出登录
-            if (result.data.data === 'Token 令牌不合法!') {
-              _index.default.dispatch('logout');
-            }
-            return false;
-          }
-          // 其他验证...
-          // 成功
-          var data = result.data.data;
-          res(data);
-        },
-        fail: function fail(error) {
-          uni.showToast({ title: error.errMsg || '请求失败', icon: 'none' });
-          return rej(error);
-        } }));
-
-    });
-  },
-  // get请求
-  get: function get(url) {var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    options.url = url;
-    options.data = {};
-    options.method = 'GET';
-    return this.request(options);
-  },
-  // post请求
-  post: function post(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    options.url = url;
-    options.data = data;
-    options.method = 'POST';
-    return this.request(options);
-  },
-  // delete请求
-  del: function del(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    options.url = url;
-    options.data = data;
-    options.method = 'DELETE';
-    return this.request(options);
-  },
-  // 上传文件
-  upload: function upload(url, data) {var _this = this;var onProgress = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    return new Promise(function (result, reject) {
-      // 上传之前验证
-      var token = uni.getStorageSync('token');
-      if (!token) {
-        uni.showToast({ title: '请先登录', icon: 'none' });
-        // token不存在时跳转
-        return uni.navigateTo({
-          url: '/pages/login/login' });
-
-      }
-
-      var uploadTask = uni.uploadFile({
-        url: _this.common.baseUrl + url,
-        filePath: data.filePath,
-        name: data.name || "files",
-        header: { token: token },
-        success: function success(res) {
-          if (res.statusCode !== 200) {
-            result(false);
-            return uni.showToast({
-              title: '上传失败',
-              icon: 'none' });
-
-          }
-          var message = JSON.parse(res.data);
-          result(message.data);
-        },
-        fail: function fail(err) {
-          console.log(err);
-          reject(err);
-        } });
-
-
-      uploadTask.onProgressUpdate(function (res) {
-        if (typeof onProgress === 'function') {
-          onProgress(res.progress);
-        }
-      });
-
-    });
-  } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-/* 41 */
 /*!**********************************************************************!*\
   !*** D:/work/workspace/uniApp/agricultural-front-end/store/index.js ***!
   \**********************************************************************/
@@ -10642,46 +10466,94 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 42));
-var _request = _interopRequireDefault(__webpack_require__(/*! ../common/request.js */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-_vue.default.use(_vuex.default);var _default =
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 41));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+_vue.default.use(_vuex.default);
 
-new _vuex.default.Store({
+var lifeData = {};
+
+try {
+  // 尝试获取本地是否存在lifeData变量，第一次启动APP时是不存在的
+  lifeData = uni.getStorageSync('lifeData');
+} catch (e) {
+
+}
+
+// 需要永久存储，且下次APP启动需要取出的，在state中的变量名
+var saveStateKeys = ['vuex_user', 'vuex_token'];
+
+// 保存变量到本地存储中
+var saveLifeData = function saveLifeData(key, value) {
+  // 判断变量名是否在需要存储的数组中
+  if (saveStateKeys.indexOf(key) != -1) {
+    // 获取本地存储的lifeData对象，将变量添加到对象中
+    var tmp = uni.getStorageSync('lifeData');
+    // 第一次打开APP，不存在lifeData变量，故放一个{}空对象
+    tmp = tmp ? tmp : {};
+    tmp[key] = value;
+    // 执行这一步后，所有需要存储的变量，都挂载在本地的lifeData对象中
+    uni.setStorageSync('lifeData', tmp);
+  }
+};
+var store = new _vuex.default.Store({
   state: {
-    user: false,
-    token: false },
+    // 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
+    // 加上vuex_前缀，是防止变量名冲突，也让人一目了然
+    vuex_user: lifeData.vuex_user ? lifeData.vuex_user : { name: '明月' },
+    vuex_token: lifeData.vuex_token ? lifeData.vuex_token : '',
+    // 如果vuex_version无需保存到本地永久存储，无需lifeData.vuex_version方式
+    vuex_version: '1.0.1',
+    vuex_demo: '绛紫',
+    // 自定义tabbar数据
+    vuex_tabbar: [{
+      iconPath: "/static/uview/example/component.png",
+      selectedIconPath: "/static/uview/example/component_select.png",
+      text: '组件',
+      pagePath: '/pages/example/components' },
 
-  actions: {
-    // 登录
-    login: function login(_ref, user) {var state = _ref.state;
-      state.user = user;
-      state.token = user.token;
-      uni.setStorageSync('user', JSON.stringify(user));
-      uni.setStorageSync('token', user.token);
-    },
-    // 初始化用户登录状态
-    initUser: function initUser(_ref2) {var state = _ref2.state;
-      var u = uni.getStorageSync('user');
-      if (u) {
-        u = JSON.parse(u);
-        state.user = u;
-        state.token = u.token;
+    {
+      iconPath: "/static/uview/example/js.png",
+      selectedIconPath: "/static/uview/example/js_select.png",
+      text: '工具',
+      midButton: true,
+      pagePath: '/pages/example/js' },
+
+    {
+      iconPath: "/static/uview/example/template.png",
+      selectedIconPath: "/static/uview/example/template_select.png",
+      text: '模板',
+      pagePath: '/pages/example/template' }] },
+
+
+
+  mutations: {
+    $uStore: function $uStore(state, payload) {
+      // 判断是否多层级调用，state中为对象存在的情况，诸如user.info.score = 1
+      var nameArr = payload.name.split('.');
+      var saveKey = '';
+      var len = nameArr.length;
+      if (len >= 2) {
+        var obj = state[nameArr[0]];
+        for (var i = 1; i < len - 1; i++) {
+          obj = obj[nameArr[i]];
+        }
+        obj[nameArr[len - 1]] = payload.value;
+        saveKey = nameArr[0];
+      } else {
+        // 单层级变量，在state就是一个普通变量的情况
+        state[payload.name] = payload.value;
+        saveKey = payload.name;
       }
-    },
-    // 退出登录
-    logout: function logout(_ref3) {var state = _ref3.state;
-      _request.default.post('/logout', {}, {
-        token: true });
+      // 保存变量到本地，见顶部函数定义
+      saveLifeData(saveKey, state[saveKey]);
+    } } });var _default =
 
-      state.user = false;
-      state.token = false;
-      uni.removeStorageSync('user');
-      uni.removeStorageSync('token');
-    } } });exports.default = _default;
+
+
+store;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 42 */
+/* 41 */
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
   \********************************************/
@@ -11791,6 +11663,225 @@ var index = {
 
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 3)))
+
+/***/ }),
+/* 42 */
+/*!****************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/locales/zh.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  // 可以以页面为单位来写，比如首页的内容，写在index字段，个人中心写在center，共同部分写在common部分
+  components: {
+    desc: '众多组件覆盖开发过程的各个需求，组件功能丰富，多端兼容。让你快速集成，开箱即用' },
+
+  js: {
+    desc: '众多的贴心小工具，是你开发过程中召之即来的利器，让你飞镖在手，百步穿杨' },
+
+  template: {
+    desc: '收集众多的常用页面和布局，减少开发者的重复工作，让你专注逻辑，事半功倍' },
+
+  nav: {
+    components: '组件',
+    js: '工具',
+    template: '模板' },
+
+  common: {
+    intro: '多平台快速开发的UI框架',
+    title: 'uView UI' } };exports.default = _default;
+
+/***/ }),
+/* 43 */
+/*!****************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/locales/en.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  // 可以以页面为单位来写，比如首页的内容，写在index字段，个人中心写在center，共同部分写在common部分
+  components: {
+    desc: 'Numerous components cover the various requirements of the development process, and the components are rich in functions and compatible with multiple terminals. Let you integrate quickly, out of the box' },
+
+  js: {
+    desc: 'Numerous intimate gadgets are a weapon that you can call upon during the development process, allowing you to dart in your hand and pierce the Yang with a hundred steps' },
+
+  template: {
+    desc: 'Collection of many commonly used pages and layouts, reducing the repetitive work of developers, allowing you to focus on logic and get twice the result with half the effort' },
+
+  nav: {
+    components: 'Components',
+    js: 'JS',
+    template: 'Template' },
+
+  common: {
+    intro: 'UI framework for rapid development of multiple platforms',
+    title: 'uView UI' } };exports.default = _default;
+
+/***/ }),
+/* 44 */
+/*!******************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/vue-i18n.min.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * vue-i18n v8.20.0 
+ * (c) 2020 kazuya kawaguchi
+ * Released under the MIT License.
+ */
+var t, e;t = this, e = function e() {"use strict";var t = ["style", "currency", "currencyDisplay", "useGrouping", "minimumIntegerDigits", "minimumFractionDigits", "maximumFractionDigits", "minimumSignificantDigits", "maximumSignificantDigits", "localeMatcher", "formatMatcher", "unit"];function e(t, e) {"undefined" != typeof console && (console.warn("[vue-i18n] " + t), e && console.warn(e.stack));}var n = Array.isArray;function r(t) {return null !== t && "object" == typeof t;}function a(t) {return "string" == typeof t;}var i = Object.prototype.toString,o = "[object Object]";function s(t) {return i.call(t) === o;}function l(t) {return null == t;}function c() {for (var t = [], e = arguments.length; e--;) {t[e] = arguments[e];}var n = null,a = null;return 1 === t.length ? r(t[0]) || Array.isArray(t[0]) ? a = t[0] : "string" == typeof t[0] && (n = t[0]) : 2 === t.length && ("string" == typeof t[0] && (n = t[0]), (r(t[1]) || Array.isArray(t[1])) && (a = t[1])), { locale: n, params: a };}function u(t) {return JSON.parse(JSON.stringify(t));}function h(t, e) {return !!~t.indexOf(e);}var f = Object.prototype.hasOwnProperty;function p(t, e) {return f.call(t, e);}function m(t) {for (var e = arguments, n = Object(t), a = 1; a < arguments.length; a++) {var i = e[a];if (null != i) {var o = void 0;for (o in i) {p(i, o) && (r(i[o]) ? n[o] = m(n[o], i[o]) : n[o] = i[o]);}}}return n;}function _(t, e) {if (t === e) return !0;var n = r(t),a = r(e);if (!n || !a) return !n && !a && String(t) === String(e);try {var i = Array.isArray(t),o = Array.isArray(e);if (i && o) return t.length === e.length && t.every(function (t, n) {return _(t, e[n]);});if (i || o) return !1;var s = Object.keys(t),l = Object.keys(e);return s.length === l.length && s.every(function (n) {return _(t[n], e[n]);});} catch (t) {return !1;}}var g = { beforeCreate: function beforeCreate() {var t = this.$options;if (t.i18n = t.i18n || (t.__i18n ? {} : null), t.i18n) {if (t.i18n instanceof et) {if (t.__i18n) try {var e = {};t.__i18n.forEach(function (t) {e = m(e, JSON.parse(t));}), Object.keys(e).forEach(function (n) {t.i18n.mergeLocaleMessage(n, e[n]);});} catch (t) {}this._i18n = t.i18n, this._i18nWatcher = this._i18n.watchI18nData();} else if (s(t.i18n)) {var n = this.$root && this.$root.$i18n && this.$root.$i18n instanceof et ? this.$root.$i18n : null;if (n && (t.i18n.root = this.$root, t.i18n.formatter = n.formatter, t.i18n.fallbackLocale = n.fallbackLocale, t.i18n.formatFallbackMessages = n.formatFallbackMessages, t.i18n.silentTranslationWarn = n.silentTranslationWarn, t.i18n.silentFallbackWarn = n.silentFallbackWarn, t.i18n.pluralizationRules = n.pluralizationRules, t.i18n.preserveDirectiveContent = n.preserveDirectiveContent), t.__i18n) try {var r = {};t.__i18n.forEach(function (t) {r = m(r, JSON.parse(t));}), t.i18n.messages = r;} catch (t) {}var a = t.i18n.sharedMessages;a && s(a) && (t.i18n.messages = m(t.i18n.messages, a)), this._i18n = new et(t.i18n), this._i18nWatcher = this._i18n.watchI18nData(), (void 0 === t.i18n.sync || t.i18n.sync) && (this._localeWatcher = this.$i18n.watchLocale()), n && n.onComponentInstanceCreated(this._i18n);}} else this.$root && this.$root.$i18n && this.$root.$i18n instanceof et ? this._i18n = this.$root.$i18n : t.parent && t.parent.$i18n && t.parent.$i18n instanceof et && (this._i18n = t.parent.$i18n);}, beforeMount: function beforeMount() {var t = this.$options;t.i18n = t.i18n || (t.__i18n ? {} : null), t.i18n ? t.i18n instanceof et ? (this._i18n.subscribeDataChanging(this), this._subscribing = !0) : s(t.i18n) && (this._i18n.subscribeDataChanging(this), this._subscribing = !0) : this.$root && this.$root.$i18n && this.$root.$i18n instanceof et ? (this._i18n.subscribeDataChanging(this), this._subscribing = !0) : t.parent && t.parent.$i18n && t.parent.$i18n instanceof et && (this._i18n.subscribeDataChanging(this), this._subscribing = !0);}, beforeDestroy: function beforeDestroy() {if (this._i18n) {var t = this;this.$nextTick(function () {t._subscribing && (t._i18n.unsubscribeDataChanging(t), delete t._subscribing), t._i18nWatcher && (t._i18nWatcher(), t._i18n.destroyVM(), delete t._i18nWatcher), t._localeWatcher && (t._localeWatcher(), delete t._localeWatcher);});}} },v = { name: "i18n", functional: !0, props: { tag: { type: [String, Boolean, Object], default: "span" }, path: { type: String, required: !0 }, locale: { type: String }, places: { type: [Array, Object] } }, render: function render(t, e) {var n = e.data,r = e.parent,a = e.props,i = e.slots,o = r.$i18n;if (o) {var s = a.path,l = a.locale,c = a.places,u = i(),h = o.i(s, l, function (t) {var e;for (e in t) {if ("default" !== e) return !1;}return Boolean(e);}(u) || c ? function (t, e) {var n = e ? function (t) {return Array.isArray(t) ? t.reduce(d, {}) : Object.assign({}, t);}(e) : {};if (!t) return n;var r = (t = t.filter(function (t) {return t.tag || "" !== t.text.trim();})).every(y);return t.reduce(r ? b : d, n);}(u.default, c) : u),f = a.tag && !0 !== a.tag || !1 === a.tag ? a.tag : "span";return f ? t(f, n, h) : h;}} };function b(t, e) {return e.data && e.data.attrs && e.data.attrs.place && (t[e.data.attrs.place] = e), t;}function d(t, e, n) {return t[n] = e, t;}function y(t) {return Boolean(t.data && t.data.attrs && t.data.attrs.place);}var F,k = { name: "i18n-n", functional: !0, props: { tag: { type: [String, Boolean, Object], default: "span" }, value: { type: Number, required: !0 }, format: { type: [String, Object] }, locale: { type: String } }, render: function render(e, n) {var i = n.props,o = n.parent,s = n.data,l = o.$i18n;if (!l) return null;var c = null,u = null;a(i.format) ? c = i.format : r(i.format) && (i.format.key && (c = i.format.key), u = Object.keys(i.format).reduce(function (e, n) {var r;return h(t, n) ? Object.assign({}, e, ((r = {})[n] = i.format[n], r)) : e;}, null));var f = i.locale || l.locale,p = l._ntp(i.value, f, c, u),m = p.map(function (t, e) {var n,r = s.scopedSlots && s.scopedSlots[t.type];return r ? r(((n = {})[t.type] = t.value, n.index = e, n.parts = p, n)) : t.value;}),_ = i.tag && !0 !== i.tag || !1 === i.tag ? i.tag : "span";return _ ? e(_, { attrs: s.attrs, class: s.class, staticClass: s.staticClass }, m) : m;} };function w(t, e, n) {C(t, n) && T(t, e, n);}function $(t, e, n, r) {if (C(t, n)) {var a = n.context.$i18n;(function (t, e) {var n = e.context;return t._locale === n.$i18n.locale;})(t, n) && _(e.value, e.oldValue) && _(t._localeMessage, a.getLocaleMessage(a.locale)) || T(t, e, n);}}function M(t, n, r, a) {if (r.context) {var i = r.context.$i18n || {};n.modifiers.preserve || i.preserveDirectiveContent || (t.textContent = ""), t._vt = void 0, delete t._vt, t._locale = void 0, delete t._locale, t._localeMessage = void 0, delete t._localeMessage;} else e("Vue instance does not exists in VNode context");}function C(t, n) {var r = n.context;return r ? !!r.$i18n || (e("VueI18n instance does not exists in Vue instance"), !1) : (e("Vue instance does not exists in VNode context"), !1);}function T(t, n, r) {var i,o,l = function (t) {var e, n, r, i;a(t) ? e = t : s(t) && (e = t.path, n = t.locale, r = t.args, i = t.choice);return { path: e, locale: n, args: r, choice: i };}(n.value),c = l.path,u = l.locale,h = l.args,f = l.choice;if (c || u || h) {if (c) {var p = r.context;t._vt = t.textContent = null != f ? (i = p.$i18n).tc.apply(i, [c, f].concat(L(u, h))) : (o = p.$i18n).t.apply(o, [c].concat(L(u, h))), t._locale = p.$i18n.locale, t._localeMessage = p.$i18n.getLocaleMessage(p.$i18n.locale);} else e("`path` is required in v-t directive");} else e("value type not supported");}function L(t, e) {var n = [];return t && n.push(t), e && (Array.isArray(e) || s(e)) && n.push(e), n;}function I(t) {I.installed = !0;(F = t).version && Number(F.version.split(".")[0]);!function (t) {t.prototype.hasOwnProperty("$i18n") || Object.defineProperty(t.prototype, "$i18n", { get: function get() {return this._i18n;} }), t.prototype.$t = function (t) {for (var e = [], n = arguments.length - 1; n-- > 0;) {e[n] = arguments[n + 1];}var r = this.$i18n;return r._t.apply(r, [t, r.locale, r._getMessages(), this].concat(e));}, t.prototype.$tc = function (t, e) {for (var n = [], r = arguments.length - 2; r-- > 0;) {n[r] = arguments[r + 2];}var a = this.$i18n;return a._tc.apply(a, [t, a.locale, a._getMessages(), this, e].concat(n));}, t.prototype.$te = function (t, e) {var n = this.$i18n;return n._te(t, n.locale, n._getMessages(), e);}, t.prototype.$d = function (t) {for (var e, n = [], r = arguments.length - 1; r-- > 0;) {n[r] = arguments[r + 1];}return (e = this.$i18n).d.apply(e, [t].concat(n));}, t.prototype.$n = function (t) {for (var e, n = [], r = arguments.length - 1; r-- > 0;) {n[r] = arguments[r + 1];}return (e = this.$i18n).n.apply(e, [t].concat(n));};}(F), F.mixin(g), F.directive("t", { bind: w, update: $, unbind: M }), F.component(v.name, v), F.component(k.name, k), F.config.optionMergeStrategies.i18n = function (t, e) {return void 0 === e ? t : e;};}var D = function D() {this._caches = Object.create(null);};D.prototype.interpolate = function (t, e) {if (!e) return [t];var n = this._caches[t];return n || (n = function (t) {var e = [],n = 0,r = "";for (; n < t.length;) {var a = t[n++];if ("{" === a) {r && e.push({ type: "text", value: r }), r = "";var i = "";for (a = t[n++]; void 0 !== a && "}" !== a;) {i += a, a = t[n++];}var o = "}" === a,s = O.test(i) ? "list" : o && x.test(i) ? "named" : "unknown";e.push({ value: i, type: s });} else "%" === a ? "{" !== t[n] && (r += a) : r += a;}return r && e.push({ type: "text", value: r }), e;}(t), this._caches[t] = n), function (t, e) {var n = [],a = 0,i = Array.isArray(e) ? "list" : r(e) ? "named" : "unknown";if ("unknown" === i) return n;for (; a < t.length;) {var o = t[a];switch (o.type) {case "text":n.push(o.value);break;case "list":n.push(e[parseInt(o.value, 10)]);break;case "named":"named" === i && n.push(e[o.value]);}a++;}return n;}(n, e);};var O = /^(?:\d)+/,x = /^(?:\w)+/,W = 0,j = 1,N = 2,A = 3,S = 0,R = 4,H = 5,P = 6,V = 7,E = 8,z = [];z[S] = { ws: [S], ident: [3, W], "[": [R], eof: [V] }, z[1] = { ws: [1], ".": [2], "[": [R], eof: [V] }, z[2] = { ws: [2], ident: [3, W], 0: [3, W], number: [3, W] }, z[3] = { ident: [3, W], 0: [3, W], number: [3, W], ws: [1, j], ".": [2, j], "[": [R, j], eof: [V, j] }, z[R] = { "'": [H, W], '"': [P, W], "[": [R, N], "]": [1, A], eof: E, else: [R, W] }, z[H] = { "'": [R, W], eof: E, else: [H, W] }, z[P] = { '"': [R, W], eof: E, else: [P, W] };var B = /^\s?(?:true|false|-?[\d.]+|'[^']*'|"[^"]*")\s?$/;function U(t) {if (null == t) return "eof";switch (t.charCodeAt(0)) {case 91:case 93:case 46:case 34:case 39:return t;case 95:case 36:case 45:return "ident";case 9:case 10:case 13:case 160:case 65279:case 8232:case 8233:return "ws";}return "ident";}function J(t) {var e,n,r,a = t.trim();return ("0" !== t.charAt(0) || !isNaN(t)) && (r = a, B.test(r) ? (n = (e = a).charCodeAt(0)) !== e.charCodeAt(e.length - 1) || 34 !== n && 39 !== n ? e : e.slice(1, -1) : "*" + a);}var q = function q() {this._cache = Object.create(null);};q.prototype.parsePath = function (t) {var e = this._cache[t];return e || (e = function (t) {var e,n,r,a,i,o,s,l = [],c = -1,u = S,h = 0,f = [];function p() {var e = t[c + 1];if (u === H && "'" === e || u === P && '"' === e) return c++, r = "\\" + e, f[W](), !0;}for (f[j] = function () {void 0 !== n && (l.push(n), n = void 0);}, f[W] = function () {void 0 === n ? n = r : n += r;}, f[N] = function () {f[W](), h++;}, f[A] = function () {if (h > 0) h--, u = R, f[W]();else {if (h = 0, void 0 === n) return !1;if (!1 === (n = J(n))) return !1;f[j]();}}; null !== u;) {if ("\\" !== (e = t[++c]) || !p()) {if (a = U(e), (i = (s = z[u])[a] || s.else || E) === E) return;if (u = i[0], (o = f[i[1]]) && (r = void 0 === (r = i[2]) ? e : r, !1 === o())) return;if (u === V) return l;}}}(t)) && (this._cache[t] = e), e || [];}, q.prototype.getPathValue = function (t, e) {if (!r(t)) return null;var n = this.parsePath(e);if (0 === n.length) return null;for (var a = n.length, i = t, o = 0; o < a;) {var s = i[n[o]];if (void 0 === s) return null;i = s, o++;}return i;};var G,X = /<\/?[\w\s="/.':;#-\/]+>/,Z = /(?:@(?:\.[a-z]+)?:(?:[\w\-_|.]+|\([\w\-_|.]+\)))/g,K = /^@(?:\.([a-z]+))?:/,Q = /[()]/g,Y = { upper: function upper(t) {return t.toLocaleUpperCase();}, lower: function lower(t) {return t.toLocaleLowerCase();}, capitalize: function capitalize(t) {return "" + t.charAt(0).toLocaleUpperCase() + t.substr(1);} },tt = new D(),et = function et(t) {var e = this;void 0 === t && (t = {}), !F && "undefined" != typeof window && window.Vue && I(window.Vue);var n = t.locale || "en-US",r = !1 !== t.fallbackLocale && (t.fallbackLocale || "en-US"),a = t.messages || {},i = t.dateTimeFormats || {},o = t.numberFormats || {};this._vm = null, this._formatter = t.formatter || tt, this._modifiers = t.modifiers || {}, this._missing = t.missing || null, this._root = t.root || null, this._sync = void 0 === t.sync || !!t.sync, this._fallbackRoot = void 0 === t.fallbackRoot || !!t.fallbackRoot, this._formatFallbackMessages = void 0 !== t.formatFallbackMessages && !!t.formatFallbackMessages, this._silentTranslationWarn = void 0 !== t.silentTranslationWarn && t.silentTranslationWarn, this._silentFallbackWarn = void 0 !== t.silentFallbackWarn && !!t.silentFallbackWarn, this._dateTimeFormatters = {}, this._numberFormatters = {}, this._path = new q(), this._dataListeners = [], this._componentInstanceCreatedListener = t.componentInstanceCreatedListener || null, this._preserveDirectiveContent = void 0 !== t.preserveDirectiveContent && !!t.preserveDirectiveContent, this.pluralizationRules = t.pluralizationRules || {}, this._warnHtmlInMessage = t.warnHtmlInMessage || "off", this._postTranslation = t.postTranslation || null, this.getChoiceIndex = function (t, n) {var r = Object.getPrototypeOf(e);if (r && r.getChoiceIndex) return r.getChoiceIndex.call(e, t, n);var a, i;return e.locale in e.pluralizationRules ? e.pluralizationRules[e.locale].apply(e, [t, n]) : (a = t, i = n, a = Math.abs(a), 2 === i ? a ? a > 1 ? 1 : 0 : 1 : a ? Math.min(a, 2) : 0);}, this._exist = function (t, n) {return !(!t || !n) && (!l(e._path.getPathValue(t, n)) || !!t[n]);}, "warn" !== this._warnHtmlInMessage && "error" !== this._warnHtmlInMessage || Object.keys(a).forEach(function (t) {e._checkLocaleMessage(t, e._warnHtmlInMessage, a[t]);}), this._initVM({ locale: n, fallbackLocale: r, messages: a, dateTimeFormats: i, numberFormats: o });},nt = { vm: { configurable: !0 }, messages: { configurable: !0 }, dateTimeFormats: { configurable: !0 }, numberFormats: { configurable: !0 }, availableLocales: { configurable: !0 }, locale: { configurable: !0 }, fallbackLocale: { configurable: !0 }, formatFallbackMessages: { configurable: !0 }, missing: { configurable: !0 }, formatter: { configurable: !0 }, silentTranslationWarn: { configurable: !0 }, silentFallbackWarn: { configurable: !0 }, preserveDirectiveContent: { configurable: !0 }, warnHtmlInMessage: { configurable: !0 }, postTranslation: { configurable: !0 } };return et.prototype._checkLocaleMessage = function (t, n, r) {var i = function i(t, n, r, o) {if (s(r)) Object.keys(r).forEach(function (e) {var a = r[e];s(a) ? (o.push(e), o.push("."), i(t, n, a, o), o.pop(), o.pop()) : (o.push(e), i(t, n, a, o), o.pop());});else if (Array.isArray(r)) r.forEach(function (e, r) {s(e) ? (o.push("[" + r + "]"), o.push("."), i(t, n, e, o), o.pop(), o.pop()) : (o.push("[" + r + "]"), i(t, n, e, o), o.pop());});else if (a(r)) {if (X.test(r)) {var l = "Detected HTML in message '" + r + "' of keypath '" + o.join("") + "' at '" + n + "'. Consider component interpolation with '<i18n>' to avoid XSS. See https://bit.ly/2ZqJzkp";"warn" === t ? e(l) : "error" === t && function (t, e) {"undefined" != typeof console && (console.error("[vue-i18n] " + t), e && console.error(e.stack));}(l);}}};i(n, t, r, []);}, et.prototype._initVM = function (t) {var e = F.config.silent;F.config.silent = !0, this._vm = new F({ data: t }), F.config.silent = e;}, et.prototype.destroyVM = function () {this._vm.$destroy();}, et.prototype.subscribeDataChanging = function (t) {this._dataListeners.push(t);}, et.prototype.unsubscribeDataChanging = function (t) {!function (t, e) {if (t.length) {var n = t.indexOf(e);if (n > -1) t.splice(n, 1);}}(this._dataListeners, t);}, et.prototype.watchI18nData = function () {var t = this;return this._vm.$watch("$data", function () {for (var e = t._dataListeners.length; e--;) {F.nextTick(function () {t._dataListeners[e] && t._dataListeners[e].$forceUpdate();});}}, { deep: !0 });}, et.prototype.watchLocale = function () {if (!this._sync || !this._root) return null;var t = this._vm;return this._root.$i18n.vm.$watch("locale", function (e) {t.$set(t, "locale", e), t.$forceUpdate();}, { immediate: !0 });}, et.prototype.onComponentInstanceCreated = function (t) {this._componentInstanceCreatedListener && this._componentInstanceCreatedListener(t, this);}, nt.vm.get = function () {return this._vm;}, nt.messages.get = function () {return u(this._getMessages());}, nt.dateTimeFormats.get = function () {return u(this._getDateTimeFormats());}, nt.numberFormats.get = function () {return u(this._getNumberFormats());}, nt.availableLocales.get = function () {return Object.keys(this.messages).sort();}, nt.locale.get = function () {return this._vm.locale;}, nt.locale.set = function (t) {this._vm.$set(this._vm, "locale", t);}, nt.fallbackLocale.get = function () {return this._vm.fallbackLocale;}, nt.fallbackLocale.set = function (t) {this._localeChainCache = {}, this._vm.$set(this._vm, "fallbackLocale", t);}, nt.formatFallbackMessages.get = function () {return this._formatFallbackMessages;}, nt.formatFallbackMessages.set = function (t) {this._formatFallbackMessages = t;}, nt.missing.get = function () {return this._missing;}, nt.missing.set = function (t) {this._missing = t;}, nt.formatter.get = function () {return this._formatter;}, nt.formatter.set = function (t) {this._formatter = t;}, nt.silentTranslationWarn.get = function () {return this._silentTranslationWarn;}, nt.silentTranslationWarn.set = function (t) {this._silentTranslationWarn = t;}, nt.silentFallbackWarn.get = function () {return this._silentFallbackWarn;}, nt.silentFallbackWarn.set = function (t) {this._silentFallbackWarn = t;}, nt.preserveDirectiveContent.get = function () {return this._preserveDirectiveContent;}, nt.preserveDirectiveContent.set = function (t) {this._preserveDirectiveContent = t;}, nt.warnHtmlInMessage.get = function () {return this._warnHtmlInMessage;}, nt.warnHtmlInMessage.set = function (t) {var e = this,n = this._warnHtmlInMessage;if (this._warnHtmlInMessage = t, n !== t && ("warn" === t || "error" === t)) {var r = this._getMessages();Object.keys(r).forEach(function (t) {e._checkLocaleMessage(t, e._warnHtmlInMessage, r[t]);});}}, nt.postTranslation.get = function () {return this._postTranslation;}, nt.postTranslation.set = function (t) {this._postTranslation = t;}, et.prototype._getMessages = function () {return this._vm.messages;}, et.prototype._getDateTimeFormats = function () {return this._vm.dateTimeFormats;}, et.prototype._getNumberFormats = function () {return this._vm.numberFormats;}, et.prototype._warnDefault = function (t, e, n, r, i, o) {if (!l(n)) return n;if (this._missing) {var s = this._missing.apply(null, [t, e, r, i]);if (a(s)) return s;}if (this._formatFallbackMessages) {var u = c.apply(void 0, i);return this._render(e, o, u.params, e);}return e;}, et.prototype._isFallbackRoot = function (t) {return !t && !l(this._root) && this._fallbackRoot;}, et.prototype._isSilentFallbackWarn = function (t) {return this._silentFallbackWarn instanceof RegExp ? this._silentFallbackWarn.test(t) : this._silentFallbackWarn;}, et.prototype._isSilentFallback = function (t, e) {return this._isSilentFallbackWarn(e) && (this._isFallbackRoot() || t !== this.fallbackLocale);}, et.prototype._isSilentTranslationWarn = function (t) {return this._silentTranslationWarn instanceof RegExp ? this._silentTranslationWarn.test(t) : this._silentTranslationWarn;}, et.prototype._interpolate = function (t, e, n, r, i, o, c) {if (!e) return null;var u,h = this._path.getPathValue(e, n);if (Array.isArray(h) || s(h)) return h;if (l(h)) {if (!s(e)) return null;if (!a(u = e[n])) return null;} else {if (!a(h)) return null;u = h;}return (u.indexOf("@:") >= 0 || u.indexOf("@.") >= 0) && (u = this._link(t, e, u, r, "raw", o, c)), this._render(u, i, o, n);}, et.prototype._link = function (t, e, n, r, a, i, o) {var s = n,l = s.match(Z);for (var c in l) {if (l.hasOwnProperty(c)) {var u = l[c],f = u.match(K),p = f[0],m = f[1],_ = u.replace(p, "").replace(Q, "");if (h(o, _)) return s;o.push(_);var g = this._interpolate(t, e, _, r, "raw" === a ? "string" : a, "raw" === a ? void 0 : i, o);if (this._isFallbackRoot(g)) {if (!this._root) throw Error("unexpected error");var v = this._root.$i18n;g = v._translate(v._getMessages(), v.locale, v.fallbackLocale, _, r, a, i);}g = this._warnDefault(t, _, g, r, Array.isArray(i) ? i : [i], a), this._modifiers.hasOwnProperty(m) ? g = this._modifiers[m](g) : Y.hasOwnProperty(m) && (g = Y[m](g)), o.pop(), s = g ? s.replace(u, g) : s;}}return s;}, et.prototype._render = function (t, e, n, r) {var i = this._formatter.interpolate(t, n, r);return i || (i = tt.interpolate(t, n, r)), "string" !== e || a(i) ? i : i.join("");}, et.prototype._appendItemToChain = function (t, e, n) {var r = !1;return h(t, e) || (r = !0, e && (r = "!" !== e[e.length - 1], e = e.replace(/!/g, ""), t.push(e), n && n[e] && (r = n[e]))), r;}, et.prototype._appendLocaleToChain = function (t, e, n) {var r,a = e.split("-");do {var i = a.join("-");r = this._appendItemToChain(t, i, n), a.splice(-1, 1);} while (a.length && !0 === r);return r;}, et.prototype._appendBlockToChain = function (t, e, n) {for (var r = !0, i = 0; i < e.length && "boolean" == typeof r; i++) {var o = e[i];a(o) && (r = this._appendLocaleToChain(t, o, n));}return r;}, et.prototype._getLocaleChain = function (t, e) {if ("" === t) return [];this._localeChainCache || (this._localeChainCache = {});var i = this._localeChainCache[t];if (!i) {e || (e = this.fallbackLocale), i = [];for (var o, s = [t]; n(s);) {s = this._appendBlockToChain(i, s, e);}(s = a(o = n(e) ? e : r(e) ? e.default ? e.default : null : e) ? [o] : o) && this._appendBlockToChain(i, s, null), this._localeChainCache[t] = i;}return i;}, et.prototype._translate = function (t, e, n, r, a, i, o) {for (var s, c = this._getLocaleChain(e, n), u = 0; u < c.length; u++) {var h = c[u];if (!l(s = this._interpolate(h, t[h], r, a, i, o, [r]))) return s;}return null;}, et.prototype._t = function (t, e, n, r) {for (var a, i = [], o = arguments.length - 4; o-- > 0;) {i[o] = arguments[o + 4];}if (!t) return "";var s = c.apply(void 0, i),l = s.locale || e,u = this._translate(n, l, this.fallbackLocale, t, r, "string", s.params);if (this._isFallbackRoot(u)) {if (!this._root) throw Error("unexpected error");return (a = this._root).$t.apply(a, [t].concat(i));}return u = this._warnDefault(l, t, u, r, i, "string"), this._postTranslation && null != u && (u = this._postTranslation(u, t)), u;}, et.prototype.t = function (t) {for (var e, n = [], r = arguments.length - 1; r-- > 0;) {n[r] = arguments[r + 1];}return (e = this)._t.apply(e, [t, this.locale, this._getMessages(), null].concat(n));}, et.prototype._i = function (t, e, n, r, a) {var i = this._translate(n, e, this.fallbackLocale, t, r, "raw", a);if (this._isFallbackRoot(i)) {if (!this._root) throw Error("unexpected error");return this._root.$i18n.i(t, e, a);}return this._warnDefault(e, t, i, r, [a], "raw");}, et.prototype.i = function (t, e, n) {return t ? (a(e) || (e = this.locale), this._i(t, e, this._getMessages(), null, n)) : "";}, et.prototype._tc = function (t, e, n, r, a) {for (var i, o = [], s = arguments.length - 5; s-- > 0;) {o[s] = arguments[s + 5];}if (!t) return "";void 0 === a && (a = 1);var l = { count: a, n: a },u = c.apply(void 0, o);return u.params = Object.assign(l, u.params), o = null === u.locale ? [u.params] : [u.locale, u.params], this.fetchChoice((i = this)._t.apply(i, [t, e, n, r].concat(o)), a);}, et.prototype.fetchChoice = function (t, e) {if (!t && !a(t)) return null;var n = t.split("|");return n[e = this.getChoiceIndex(e, n.length)] ? n[e].trim() : t;}, et.prototype.tc = function (t, e) {for (var n, r = [], a = arguments.length - 2; a-- > 0;) {r[a] = arguments[a + 2];}return (n = this)._tc.apply(n, [t, this.locale, this._getMessages(), null, e].concat(r));}, et.prototype._te = function (t, e, n) {for (var r = [], a = arguments.length - 3; a-- > 0;) {r[a] = arguments[a + 3];}var i = c.apply(void 0, r).locale || e;return this._exist(n[i], t);}, et.prototype.te = function (t, e) {return this._te(t, this.locale, this._getMessages(), e);}, et.prototype.getLocaleMessage = function (t) {return u(this._vm.messages[t] || {});}, et.prototype.setLocaleMessage = function (t, e) {"warn" !== this._warnHtmlInMessage && "error" !== this._warnHtmlInMessage || this._checkLocaleMessage(t, this._warnHtmlInMessage, e), this._vm.$set(this._vm.messages, t, e);}, et.prototype.mergeLocaleMessage = function (t, e) {"warn" !== this._warnHtmlInMessage && "error" !== this._warnHtmlInMessage || this._checkLocaleMessage(t, this._warnHtmlInMessage, e), this._vm.$set(this._vm.messages, t, m({}, this._vm.messages[t] || {}, e));}, et.prototype.getDateTimeFormat = function (t) {return u(this._vm.dateTimeFormats[t] || {});}, et.prototype.setDateTimeFormat = function (t, e) {this._vm.$set(this._vm.dateTimeFormats, t, e), this._clearDateTimeFormat(t, e);}, et.prototype.mergeDateTimeFormat = function (t, e) {this._vm.$set(this._vm.dateTimeFormats, t, m(this._vm.dateTimeFormats[t] || {}, e)), this._clearDateTimeFormat(t, e);}, et.prototype._clearDateTimeFormat = function (t, e) {for (var n in e) {var r = t + "__" + n;this._dateTimeFormatters.hasOwnProperty(r) && delete this._dateTimeFormatters[r];}}, et.prototype._localizeDateTime = function (t, e, n, r, a) {for (var i = e, o = r[i], s = this._getLocaleChain(e, n), c = 0; c < s.length; c++) {var u = s[c];if (i = u, !l(o = r[u]) && !l(o[a])) break;}if (l(o) || l(o[a])) return null;var h = o[a],f = i + "__" + a,p = this._dateTimeFormatters[f];return p || (p = this._dateTimeFormatters[f] = new Intl.DateTimeFormat(i, h)), p.format(t);}, et.prototype._d = function (t, e, n) {if (!n) return new Intl.DateTimeFormat(e).format(t);var r = this._localizeDateTime(t, e, this.fallbackLocale, this._getDateTimeFormats(), n);if (this._isFallbackRoot(r)) {if (!this._root) throw Error("unexpected error");return this._root.$i18n.d(t, n, e);}return r || "";}, et.prototype.d = function (t) {for (var e = [], n = arguments.length - 1; n-- > 0;) {e[n] = arguments[n + 1];}var i = this.locale,o = null;return 1 === e.length ? a(e[0]) ? o = e[0] : r(e[0]) && (e[0].locale && (i = e[0].locale), e[0].key && (o = e[0].key)) : 2 === e.length && (a(e[0]) && (o = e[0]), a(e[1]) && (i = e[1])), this._d(t, i, o);}, et.prototype.getNumberFormat = function (t) {return u(this._vm.numberFormats[t] || {});}, et.prototype.setNumberFormat = function (t, e) {this._vm.$set(this._vm.numberFormats, t, e), this._clearNumberFormat(t, e);}, et.prototype.mergeNumberFormat = function (t, e) {this._vm.$set(this._vm.numberFormats, t, m(this._vm.numberFormats[t] || {}, e)), this._clearNumberFormat(t, e);}, et.prototype._clearNumberFormat = function (t, e) {for (var n in e) {var r = t + "__" + n;this._numberFormatters.hasOwnProperty(r) && delete this._numberFormatters[r];}}, et.prototype._getNumberFormatter = function (t, e, n, r, a, i) {for (var o = e, s = r[o], c = this._getLocaleChain(e, n), u = 0; u < c.length; u++) {var h = c[u];if (o = h, !l(s = r[h]) && !l(s[a])) break;}if (l(s) || l(s[a])) return null;var f,p = s[a];if (i) f = new Intl.NumberFormat(o, Object.assign({}, p, i));else {var m = o + "__" + a;(f = this._numberFormatters[m]) || (f = this._numberFormatters[m] = new Intl.NumberFormat(o, p));}return f;}, et.prototype._n = function (t, e, n, r) {if (!et.availabilities.numberFormat) return "";if (!n) return (r ? new Intl.NumberFormat(e, r) : new Intl.NumberFormat(e)).format(t);var a = this._getNumberFormatter(t, e, this.fallbackLocale, this._getNumberFormats(), n, r),i = a && a.format(t);if (this._isFallbackRoot(i)) {if (!this._root) throw Error("unexpected error");return this._root.$i18n.n(t, Object.assign({}, { key: n, locale: e }, r));}return i || "";}, et.prototype.n = function (e) {for (var n = [], i = arguments.length - 1; i-- > 0;) {n[i] = arguments[i + 1];}var o = this.locale,s = null,l = null;return 1 === n.length ? a(n[0]) ? s = n[0] : r(n[0]) && (n[0].locale && (o = n[0].locale), n[0].key && (s = n[0].key), l = Object.keys(n[0]).reduce(function (e, r) {var a;return h(t, r) ? Object.assign({}, e, ((a = {})[r] = n[0][r], a)) : e;}, null)) : 2 === n.length && (a(n[0]) && (s = n[0]), a(n[1]) && (o = n[1])), this._n(e, o, s, l);}, et.prototype._ntp = function (t, e, n, r) {if (!et.availabilities.numberFormat) return [];if (!n) return (r ? new Intl.NumberFormat(e, r) : new Intl.NumberFormat(e)).formatToParts(t);var a = this._getNumberFormatter(t, e, this.fallbackLocale, this._getNumberFormats(), n, r),i = a && a.formatToParts(t);if (this._isFallbackRoot(i)) {if (!this._root) throw Error("unexpected error");return this._root.$i18n._ntp(t, e, n, r);}return i || [];}, Object.defineProperties(et.prototype, nt), Object.defineProperty(et, "availabilities", { get: function get() {if (!G) {var t = "undefined" != typeof Intl;G = { dateTimeFormat: t && void 0 !== Intl.DateTimeFormat, numberFormat: t && void 0 !== Intl.NumberFormat };}return G;} }), et.install = I, et.version = "8.20.0", et;},  true ? module.exports = e() : undefined;
+
+/***/ }),
+/* 45 */
+/*!**********************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/http.interceptor.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 这里的vm，就是我们在vue文件里面的this，所以我们能在这里获取vuex的变量，比如存放在里面的token
+// 同时，我们也可以在此使用getApp().globalData，如果你把token放在getApp().globalData的话，也是可以使用的
+var install = function install(Vue, vm) {
+  Vue.prototype.$u.http.setConfig({
+    baseUrl: 'https://api.youzixy.com'
+    // 如果将此值设置为true，拦截回调中将会返回服务端返回的所有数据response，而不是response.data
+    // 设置为true后，就需要在this.$u.http.interceptor.response进行多一次的判断，请打印查看具体值
+    // originalData: true, 
+    // 设置自定义头部content-type
+    // header: {
+    // 	'content-type': 'xxx'
+    // }
+  });
+  // 请求拦截，配置Token等参数
+  Vue.prototype.$u.http.interceptor.request = function (config) {
+    config.header.Token = 'xxxxxx';
+
+    // 方式一，存放在vuex的token，假设使用了uView封装的vuex方式，见：https://uviewui.com/components/globalVariable.html
+    // config.header.token = vm.token;
+
+    // 方式二，如果没有使用uView封装的vuex方法，那么需要使用$store.state获取
+    // config.header.token = vm.$store.state.token;
+
+    // 方式三，如果token放在了globalData，通过getApp().globalData获取
+    // config.header.token = getApp().globalData.username;
+
+    // 方式四，如果token放在了Storage本地存储中，拦截是每次请求都执行的，所以哪怕您重新登录修改了Storage，下一次的请求将会是最新值
+    // const token = uni.getStorageSync('token');
+    // config.header.token = token;
+
+    return config;
+  };
+  // 响应拦截，判断状态码是否通过
+  Vue.prototype.$u.http.interceptor.response = function (res) {
+    // 如果把originalData设置为了true，这里得到将会是服务器返回的所有的原始数据
+    // 判断可能变成了res.statueCode，或者res.data.code之类的，请打印查看结果
+    if (res.code == 200) {
+      // 如果把originalData设置为了true，这里return回什么，this.$u.post的then回调中就会得到什么
+      return res.data;
+    } else return false;
+  };
+};var _default =
+
+{
+  install: install };exports.default = _default;
+
+/***/ }),
+/* 46 */
+/*!**************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/http.api.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 如果没有通过拦截器配置域名的话，可以在这里写上完整的URL(加上域名部分)
+var hotSearchUrl = '/ebapi/store_api/hot_search';
+var indexUrl = '/ebapi/public_api/index';
+
+// 此处第二个参数vm，就是我们在页面使用的this，你可以通过vm获取vuex等操作，更多内容详见uView对拦截器的介绍部分：
+// https://uviewui.com/js/http.html#%E4%BD%95%E8%B0%93%E8%AF%B7%E6%B1%82%E6%8B%A6%E6%88%AA%EF%BC%9F
+var install = function install(Vue, vm) {
+  // 此处没有使用传入的params参数
+  var getSearch = function getSearch() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};return vm.$u.get(hotSearchUrl, {
+      id: 2 });};
+
+
+  // 此处使用了传入的params参数，一切自定义即可
+  var getInfo = function getInfo() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};return vm.$u.post(indexUrl, params);};
+
+  // 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
+  vm.$u.api = { getSearch: getSearch, getInfo: getInfo };
+};var _default =
+
+{
+  install: install };exports.default = _default;
+
+/***/ }),
+/* 47 */
+/*!*************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/store/$u.mixin.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var _vuex = __webpack_require__(/*! vuex */ 41);
+var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+
+// 尝试将用户在根目录中的store/index.js的vuex的state变量，全部加载到全局变量中
+var $uStoreKey = [];
+try {
+  $uStoreKey = _store.default.state ? Object.keys(_store.default.state) : [];
+} catch (e) {
+
+}
+
+module.exports = {
+  beforeCreate: function beforeCreate() {var _this = this;
+    // 将vuex方法挂在到$u中
+    // 使用方法为：如果要修改vuex的state中的user.name变量为"史诗" => this.$u.vuex('user.name', '史诗')
+    // 如果要修改vuex的state的version变量为1.0.1 => this.$u.vuex('version', '1.0.1')
+    this.$u.vuex = function (name, value) {
+      _this.$store.commit('$uStore', {
+        name: name, value: value });
+
+    };
+  },
+  computed: _objectSpread({},
+
+  (0, _vuex.mapState)($uStoreKey)) };
+
+/***/ }),
+/* 48 */
+/*!***************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/mixin/mpShare.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {
+  onLoad: function onLoad() {
+    // 设置默认的转发参数
+    this.$u.mpShare = {
+      title: '', // 默认为小程序名称
+      path: '', // 默认为当前页面路径
+      imageUrl: '' // 默认为当前页面的截图
+    };
+  },
+  onShareAppMessage: function onShareAppMessage() {
+    return this.$u.mpShare;
+  },
+
+  onShareTimeline: function onShareTimeline() {
+    return this.$u.mpShare;
+  } };
 
 /***/ })
 ]]);

@@ -7,39 +7,81 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni, createApp) {__webpack_require__(/*! uni-pages */ 4);var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+/* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ 4);var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 5));
 
+
+
+
+
+
+
+
+
 var _uviewUi = _interopRequireDefault(__webpack_require__(/*! uview-ui */ 11));
-var _request = _interopRequireDefault(__webpack_require__(/*! ./common/request.js */ 40));
 
 
 
-var _index = _interopRequireDefault(__webpack_require__(/*! ./store/index.js */ 41));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.prototype.$H = _request.default;
-_vue.default.prototype.$store = _index.default;
+var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 40));
 
-_vue.default.prototype.authJump = function (options) {
-  if (!_index.default.state.token) {
-    uni.showToast({
-      title: '请先登录',
-      icon: 'none' });
 
-    return uni.navigateTo({
-      url: '/pages/login/login' });
 
-  }
-  uni.navigateTo(options);
-};
 
-_vue.default.config.productionTip = false;
-_vue.default.use(_uviewUi.default);
-_App.default.mpType = 'app';
 
-var app = new _vue.default(_objectSpread({},
-_App.default));
 
-createApp(app).$mount();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
+
+
+
+
+
+var _zh = _interopRequireDefault(__webpack_require__(/*! @/common/locales/zh.js */ 42));
+var _en = _interopRequireDefault(__webpack_require__(/*! @/common/locales/en.js */ 43));
+
+
+var _vueI18nMin = _interopRequireDefault(__webpack_require__(/*! @/common/vue-i18n.min.js */ 44));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _httpInterceptor = _interopRequireDefault(__webpack_require__(/*! @/common/http.interceptor.js */ 45));
+
+
+
+var _httpApi = _interopRequireDefault(__webpack_require__(/*! @/common/http.api.js */ 46));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.config.productionTip = false;_App.default.mpType = 'app'; // 此处为演示Vue.prototype使用，非uView的功能部分
+_vue.default.prototype.vuePrototype = '枣红'; // 引入全局uView
+_vue.default.use(_uviewUi.default); // 此处为演示vuex使用，非uView的功能部分
+// 引入uView提供的对vuex的简写法文件
+var vuexStore = __webpack_require__(/*! @/store/$u.mixin.js */ 47);_vue.default.mixin(vuexStore); // 引入uView对小程序分享的mixin封装
+var mpShare = __webpack_require__(/*! uview-ui/libs/mixin/mpShare.js */ 48);_vue.default.mixin(mpShare); // i18n部分的配置
+// 引入语言包，注意路径
+// VueI18n
+_vue.default.use(_vueI18nMin.default);var i18n = new _vueI18nMin.default({ // 默认语言
+  locale: 'zh', // 引入语言文件
+  messages: { 'zh': _zh.default, 'en': _en.default } }); // 由于微信小程序的运行机制问题，需声明如下一行，H5和APP非必填
+_vue.default.prototype._i18n = i18n;var app = new _vue.default(_objectSpread({ i18n: i18n, store: _store.default }, _App.default)); // http拦截器，将此部分放在new Vue()和app.$mount()之间，才能App.vue中正常使用
+_vue.default.use(_httpInterceptor.default, app); // http接口API抽离，免于写url或者一些固定的参数
+_vue.default.use(_httpApi.default, app);createApp(app).$mount();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
 
 /***/ }),
 /* 1 */,
