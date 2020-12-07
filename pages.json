@@ -43,6 +43,25 @@
             }
             
         }
+        ,{
+            "path" : "pages/pest/pest",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加病虫害",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#F8FAFF"
+            }
+            
+        }
+        ,{
+            "path" : "pages/preventProgram/preventProgram",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "病虫害用药方案",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -52,7 +71,7 @@
 	},
 	"tabBar":{
 		"borderStyle":"black",
-		"selectedColor":"#FB7299",
+		"selectedColor":"#6182FA",
 		"color":"#444444",
 		"list":[{
 			"pagePath":"pages/index/index",
