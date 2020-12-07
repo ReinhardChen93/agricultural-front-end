@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 
-
+import uView from "uview-ui";
 import $H from './common/request.js';
 
 Vue.prototype.$H = $H
@@ -23,7 +23,7 @@ Vue.prototype.authJump = (options)=>{
 }
 
 Vue.config.productionTip = false
-
+Vue.use(uView);
 App.mpType = 'app'
 
 const app = new Vue({

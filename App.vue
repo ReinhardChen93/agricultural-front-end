@@ -12,10 +12,10 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
-	/* 引入官方样式库 */
-	@import url("./common/uni.css");
+	/* uview-ui公共样式 */
+	@import "uview-ui/index.scss";
 	/* 引入animate动画库 */
 	@import url("./common/animate.css");
 	/* 引入free样式库 */
@@ -24,4 +24,5 @@
 	@import url("./common/common.css");
 	/* 引入自定义图标库 */
 	@import url("./common/icon.css");
+	
 </style>
