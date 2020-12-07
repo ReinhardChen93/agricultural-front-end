@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "swiper-dot": "/components/common/swiper-dot",
+    "card": "/components/common/card"
+  }
+}
