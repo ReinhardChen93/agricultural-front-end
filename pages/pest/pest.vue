@@ -112,12 +112,12 @@
 			flex-direction: column;
 			.bar-item {
 				flex-shrink: 0;
-				padding: 40px 10px;
+				padding: 2.5rem 0.625rem;
 				line-height: 1.25rem;
 				border-radius: 0px 0.38rem 0.5rem 0rem;
 				background-color: rgba(255, 255, 255, 100);
 				color: rgba(68, 68, 68, 100);
-				font-size: 0.88px;
+				font-size: 0.88rem;
 			}
 			.item-active{
 				color: rgba(255, 255, 255, 100);
