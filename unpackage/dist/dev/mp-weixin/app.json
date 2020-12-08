@@ -1,8 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/cate/cate",
-    "pages/my/my"
+    "pages/shop/shop",
+    "pages/my/my",
+    "pages/class/class",
+    "pages/pest/pest",
+    "pages/preventProgram/preventProgram"
   ],
   "subPackages": [],
   "window": {
@@ -13,20 +16,26 @@
   },
   "tabBar": {
     "borderStyle": "black",
-    "selectedColor": "#FB7299",
+    "selectedColor": "#6182FA",
     "color": "#444444",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "static/tabbar/find.png",
-        "selectedIconPath": "static/tabbar/find-selected.png",
-        "text": "发现"
+        "iconPath": "static/tabbar/index.png",
+        "selectedIconPath": "static/tabbar/index-selected.png",
+        "text": "首页"
       },
       {
-        "pagePath": "pages/cate/cate",
-        "iconPath": "static/tabbar/cate.png",
-        "selectedIconPath": "static/tabbar/cate-selected.png",
-        "text": "分类"
+        "pagePath": "pages/class/class",
+        "iconPath": "static/tabbar/class.png",
+        "selectedIconPath": "static/tabbar/class-selected.png",
+        "text": "课堂"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "iconPath": "static/tabbar/shop.png",
+        "selectedIconPath": "static/tabbar/shop-selected.png",
+        "text": "商城"
       },
       {
         "pagePath": "pages/my/my",
@@ -37,5 +46,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap36.json"
+  "sitemapLocation": "sitemap5.json"
 }

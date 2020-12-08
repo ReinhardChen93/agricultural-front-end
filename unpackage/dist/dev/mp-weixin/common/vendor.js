@@ -904,7 +904,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"在线点播app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"慧农平安","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7331,7 +7331,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"在线点播app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"慧农平安","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7352,14 +7352,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"在线点播app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"慧农平安","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"在线点播app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"慧农平安","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7445,7 +7445,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"在线点播app","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"慧农平安","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7882,9 +7882,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!***********************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/pages.json ***!
-  \***********************************************************/
+/*!******************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/pages.json ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8025,9 +8025,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 11 */
-/*!*******************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/index.js ***!
-  \*******************************************************************************/
+/*!**************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/index.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8176,9 +8176,9 @@ var install = function install(Vue) {
 
 /***/ }),
 /* 12 */
-/*!******************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/mixin/mixin.js ***!
-  \******************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/mixin/mixin.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8235,9 +8235,9 @@ var install = function install(Vue) {
 
 /***/ }),
 /* 13 */
-/*!********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/request/index.js ***!
-  \********************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/request/index.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8415,9 +8415,9 @@ new Request();exports.default = _default;
 
 /***/ }),
 /* 14 */
-/*!*************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/deepMerge.js ***!
-  \*************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/deepMerge.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8455,9 +8455,9 @@ deepMerge;exports.default = _default;
 
 /***/ }),
 /* 15 */
-/*!*************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/deepClone.js ***!
-  \*************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/deepClone.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8488,9 +8488,9 @@ deepClone;exports.default = _default;
 
 /***/ }),
 /* 16 */
-/*!********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/test.js ***!
-  \********************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/test.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8729,9 +8729,9 @@ function code(value) {var len = arguments.length > 1 && arguments[1] !== undefin
 
 /***/ }),
 /* 17 */
-/*!***************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/queryParams.js ***!
-  \***************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/queryParams.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8797,17 +8797,17 @@ queryParams;exports.default = _default;
 
 /***/ }),
 /* 18 */
-/*!*********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/route.js ***!
-  \*********************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/route.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * 路由跳转方法，该方法相对于直接使用uni.xxx的好处是使用更加简单快捷
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * 并且带有路由拦截功能
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */var
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * 路由跳转方法，该方法相对于直接使用uni.xxx的好处是使用更加简单快捷
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * 并且带有路由拦截功能
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              */var
 
 Router = /*#__PURE__*/function () {
   function Router() {_classCallCheck(this, Router);
@@ -9718,9 +9718,9 @@ if (hadRuntime) {
 
 /***/ }),
 /* 22 */
-/*!**************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/timeFormat.js ***!
-  \**************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/timeFormat.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9779,9 +9779,9 @@ timeFormat;exports.default = _default;
 
 /***/ }),
 /* 23 */
-/*!************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/timeFrom.js ***!
-  \************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/timeFrom.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9836,9 +9836,9 @@ timeFrom;exports.default = _default;
 
 /***/ }),
 /* 24 */
-/*!*****************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/colorGradient.js ***!
-  \*****************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/colorGradient.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9979,9 +9979,9 @@ function colorToRgba(color) {var alpha = arguments.length > 1 && arguments[1] !=
 
 /***/ }),
 /* 25 */
-/*!********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/guid.js ***!
-  \********************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/guid.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10030,9 +10030,9 @@ guid;exports.default = _default;
 
 /***/ }),
 /* 26 */
-/*!*********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/color.js ***!
-  \*********************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/color.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10077,9 +10077,9 @@ color;exports.default = _default;
 
 /***/ }),
 /* 27 */
-/*!*************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/type2icon.js ***!
-  \*************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/type2icon.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10122,9 +10122,9 @@ type2icon;exports.default = _default;
 
 /***/ }),
 /* 28 */
-/*!***************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/randomArray.js ***!
-  \***************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/randomArray.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10139,9 +10139,9 @@ randomArray;exports.default = _default;
 
 /***/ }),
 /* 29 */
-/*!***********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/addUnit.js ***!
-  \***********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/addUnit.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10157,9 +10157,9 @@ function addUnit() {var value = arguments.length > 0 && arguments[0] !== undefin
 
 /***/ }),
 /* 30 */
-/*!**********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/random.js ***!
-  \**********************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/random.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10177,9 +10177,9 @@ random;exports.default = _default;
 
 /***/ }),
 /* 31 */
-/*!********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/trim.js ***!
-  \********************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/trim.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10202,9 +10202,9 @@ trim;exports.default = _default;
 
 /***/ }),
 /* 32 */
-/*!*********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/toast.js ***!
-  \*********************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/toast.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10222,9 +10222,9 @@ toast;exports.default = _default;
 
 /***/ }),
 /* 33 */
-/*!*************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/getParent.js ***!
-  \*************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/getParent.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10279,9 +10279,9 @@ function getParent(name, keys) {
 
 /***/ }),
 /* 34 */
-/*!***********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/$parent.js ***!
-  \***********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/$parent.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10307,9 +10307,9 @@ function $parent() {var name = arguments.length > 0 && arguments[0] !== undefine
 
 /***/ }),
 /* 35 */
-/*!*******************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/sys.js ***!
-  \*******************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/sys.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10325,9 +10325,9 @@ function sys() {
 
 /***/ }),
 /* 36 */
-/*!************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/debounce.js ***!
-  \************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/debounce.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10364,9 +10364,9 @@ debounce;exports.default = _default;
 
 /***/ }),
 /* 37 */
-/*!************************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/function/throttle.js ***!
-  \************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/function/throttle.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10406,9 +10406,9 @@ throttle;exports.default = _default;
 
 /***/ }),
 /* 38 */
-/*!********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/config/config.js ***!
-  \********************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/config/config.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10429,9 +10429,9 @@ var version = '1.8.2';var _default =
 
 /***/ }),
 /* 39 */
-/*!********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/config/zIndex.js ***!
-  \********************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/config/zIndex.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10458,9 +10458,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 40 */
-/*!***************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/store/index.js ***!
-  \***************************************************************/
+/*!**********************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/store/index.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11666,9 +11666,9 @@ var index = {
 
 /***/ }),
 /* 42 */
-/*!*********************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/common/locales/zh.js ***!
-  \*********************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/locales/zh.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11695,9 +11695,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 43 */
-/*!*********************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/common/locales/en.js ***!
-  \*********************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/locales/en.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11724,9 +11724,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 44 */
-/*!***********************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/common/vue-i18n.min.js ***!
-  \***********************************************************************/
+/*!******************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/vue-i18n.min.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11739,9 +11739,9 @@ var t, e;t = this, e = function e() {"use strict";var t = ["style", "currency", 
 
 /***/ }),
 /* 45 */
-/*!***************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/common/http.interceptor.js ***!
-  \***************************************************************************/
+/*!**********************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/http.interceptor.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11794,9 +11794,9 @@ var install = function install(Vue, vm) {
 
 /***/ }),
 /* 46 */
-/*!*******************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/common/http.api.js ***!
-  \*******************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/common/http.api.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11825,9 +11825,9 @@ var install = function install(Vue, vm) {
 
 /***/ }),
 /* 47 */
-/*!******************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/store/$u.mixin.js ***!
-  \******************************************************************/
+/*!*************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/store/$u.mixin.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11860,9 +11860,9 @@ module.exports = {
 
 /***/ }),
 /* 48 */
-/*!********************************************************************************************!*\
-  !*** D:/WORK/workSpace/agricultural-front-end/node_modules/uview-ui/libs/mixin/mpShare.js ***!
-  \********************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/work/workspace/uniApp/agricultural-front-end/node_modules/uview-ui/libs/mixin/mpShare.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

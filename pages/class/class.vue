@@ -4,31 +4,33 @@
 			<u-tabs-swiper ref="uTabs" :list="list" :current="current" @change="tabsChange" :is-scroll="false"
 			 swiperWidth="750"></u-tabs-swiper>
 		</view>
-		<swiper :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish">
-			<swiper-item class="swiper-item" v-for="(item, index) in tabs" :key="index">
-				<scroll-view scroll-y style="height: 800rpx;width: 100%;" @scrolltolower="onreachBottom">
+		<swiper :current="swiperCurrent" @transition="transition" @animationfinish="animationfinish" style="height: 500px">
+			<swiper-item class="swiper-item" v-for="(item, index) in tabs" :key="item.id">
+				<scroll-view scroll-y style="height: 100%;width: 100%;" @scrolltolower="onreachBottom">
 					<!-- 轮播图组件 -->
-					<view class="px-3 py-2">
-						<swiper-dot :info="swipers" :current="current">
-							<swiper :current="current" circular :autoplay="true" :interval="3000" :duration="150" style="height: 250rpx;" @change="changeSwiper">
-								<swiper-item v-for="(item,index) in swipers" :key="index">
-									<image :src="item.src" mode="aspectFill"
-									style="height: 250rpx;width: 100%;"
-									class="rounded-lg"></image>
-								</swiper-item>
-							</swiper>
-						</swiper-dot>
-					</view>
-					
-					<!-- 视频列表 -->
-					<card title="为你推荐">
-					<view class="f-list">
+					<view>
+						<view class="px-3 py-2">
+							<swiper-dot :info="swipers" :current="current">
+								<swiper :current="current" circular :autoplay="true" :interval="3000" :duration="150" style="height: 250rpx;" @change="changeSwiper">
+									<swiper-item v-for="(swiper,swiperIndex) in swipers" :key="swiper.id">
+										<image :src="swiper.src" mode="aspectFill"
+										style="height: 250rpx;width: 100%;"
+										class="rounded-lg"></image>
+									</swiper-item>
+								</swiper>
+							</swiper-dot>
+						</view>
 						
-						<media-list v-for="(item,index) in list3" :key="index"
-						:item="item" :index="index"></media-list>
-						
+						<!-- 视频列表 -->
+						<card title="为你推荐">
+						<view class="f-list">
+							
+							<media-list v-for="(video,videoIndex) in list3" :key="video.id"
+							:item="video" :index="videoIndex"></media-list>
+							
+						</view>
+						</card>
 					</view>
-					</card>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
@@ -60,22 +62,26 @@
 				SwiperCurrent: 0, // 轮播index
 				list3:[{
 					cover:"/static/demo/list2/1.jpg",
-					title:"xxx",
-					create_time:"今天06:00",
+					title:"菠萝种植技术",
+					author:"李德华",
+					Rank: "农科院教授",
 					play_count:0,
-					danmu_count:0
+					danmu_count:0,
+					id: Math.random().toString(16)
 				}],
 				list: [{
-					name: '课堂'
+					name: '课堂',
+					id: Math.random().toString(16)
 				}, {
-					name: '短视频'
+					name: '短视频',
+					id: Math.random().toString(16)
 				}],
 				// 因为内部的滑动机制限制，请将tabs组件和swiper组件的current用不同变量赋值
 				current: 0, // tabs组件的current值，表示当前活动的tab选项
 				swiperCurrent: 0, // swiper组件的current值，表示当前那个swiper-item是活动的
 				tabs: [
-					{name: ''},
-					{name: ''},
+					{name: '', id: Math.random().toString(16)},
+					{name: '', id: Math.random().toString(16)},
 				]
 			};
 		},

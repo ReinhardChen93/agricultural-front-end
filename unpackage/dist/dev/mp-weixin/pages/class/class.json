@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "u-tabs-swiper": "/node-modules/uview-ui/components/u-tabs-swiper/u-tabs-swiper",
+    "swiper-dot": "/components/common/swiper-dot",
+    "card": "/components/common/card",
+    "media-list": "/components/common/media-list"
+  }
+}
